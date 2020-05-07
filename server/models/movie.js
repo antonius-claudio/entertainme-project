@@ -16,12 +16,18 @@ class Movie {
         return MovieDb.insertOne(newMovie);
     }
 
-    static update(newMovie) {
-        return MovieDb.insertOne(newMovie);
+    static update(id, updateMovie) {
+        return MovieDb.updateOne(
+            {_id: ObjectId(id)},
+            {
+                $set: updateMovie,
+                $currentDate: { lastModified: true }
+            }
+        );
     }
 
     static delete(id) {
-        return MovieDb.remove({_id: ObjectId(id)});
+        return MovieDb.deleteOne({_id: ObjectId(id)});
     }
 }
 

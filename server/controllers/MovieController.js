@@ -43,6 +43,7 @@ class MovieController {
     }
 
     static update(req, res, next) {
+        let { id } = req.params;
         let {
             title,
             overview,
@@ -50,7 +51,7 @@ class MovieController {
             popularity,
             tags
         } = req.body;
-        Movie.create({title, overview, poster_path, popularity, tags})
+        Movie.update(id, {title, overview, poster_path, popularity, tags})
             .then((result) => {
                 res.status(200).json(result);
             })
