@@ -25,14 +25,14 @@ class MovieController {
     }
 
     static create(req, res, next) {
-        let {
-            title,
-            overview,
-            poster_path,
-            popularity,
-            tags
-        } = req.body;
-        Movie.create({title, overview, poster_path, popularity, tags})
+        let form = {
+            title: req.body.title,
+            overview: req.body.overview,
+            poster_path: req.body.overview,
+            popularity: Number(req.body.popularity),
+            tags: req.body.tags.trim().split(',')
+        };
+        Movie.create(form)
             .then((result) => {
                 res.status(201).json(result);
             })
@@ -44,14 +44,14 @@ class MovieController {
 
     static update(req, res, next) {
         let { id } = req.params;
-        let {
-            title,
-            overview,
-            poster_path,
-            popularity,
-            tags
-        } = req.body;
-        Movie.update(id, {title, overview, poster_path, popularity, tags})
+        let form = {
+            title: req.body.title,
+            overview: req.body.overview,
+            poster_path: req.body.overview,
+            popularity: Number(req.body.popularity),
+            tags: req.body.tags.trim().split(',')
+        };
+        Movie.update(id, form)
             .then((result) => {
                 res.status(200).json(result);
             })
