@@ -7,7 +7,6 @@ class TvSeriesController {
                 res.status(200).json(result);
             })
             .catch((err) => {
-                console.log(err);
                 res.status(500).json(err);
             });
     }
@@ -19,7 +18,6 @@ class TvSeriesController {
                 res.status(200).json(result);
             })
             .catch((err) => {
-                console.log(err);
                 res.status(500).json(err);
             });
     }
@@ -29,15 +27,14 @@ class TvSeriesController {
             title: req.body.title,
             overview: req.body.overview,
             poster_path: req.body.overview,
-            popularity: Number(req.body.popularity),
-            tags: req.body.tags.trim().split(',')
+            popularity: req.body.popularity,
+            tags: req.body.tags
         };
         TvSeries.create(form)
             .then((result) => {
                 res.status(201).json(result);
             })
             .catch((err) => {
-                console.log(err);
                 res.status(500).json(err);
             });
     }
@@ -48,15 +45,14 @@ class TvSeriesController {
             title: req.body.title,
             overview: req.body.overview,
             poster_path: req.body.overview,
-            popularity: Number(req.body.popularity),
-            tags: req.body.tags.trim().split(',')
+            popularity: req.body.popularity,
+            tags: req.body.tags
         };
         TvSeries.update(id, form)
             .then((result) => {
                 res.status(200).json(result);
             })
             .catch((err) => {
-                console.log(err);
                 res.status(500).json(err);
             });
     }
@@ -68,7 +64,6 @@ class TvSeriesController {
                 res.status(200).json(result);
             })
             .catch((err) => {
-                console.log(err);
                 res.status(500).json(err);
             });
     }
