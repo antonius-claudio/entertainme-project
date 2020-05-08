@@ -4,7 +4,7 @@ const Redis = require("ioredis");
 const redis = new Redis();
 
 class TvSeriesController {
-    static find(req, res, next) {
+    static async find(req, res, next) {
         // axios({
         //     url,
         //     method: 'GET'
@@ -33,7 +33,7 @@ class TvSeriesController {
         }
     }
 
-    static findById(req, res, next) {
+    static async findById(req, res, next) {
         let { id } = req.params;
         // axios({
         //     url: `${url}/${id}`,
@@ -64,7 +64,7 @@ class TvSeriesController {
         }
     }
 
-    static create(req, res, next) {
+    static async create(req, res, next) {
         // axios({
         //     url,
         //     method: 'POST',
@@ -96,7 +96,7 @@ class TvSeriesController {
         }
     }
 
-    static update(req, res, next) {
+    static async update(req, res, next) {
         let { id } = req.params;
         // axios({
         //     url: `${url}/${id}`,
@@ -132,7 +132,7 @@ class TvSeriesController {
         }
     }
 
-    static delete(req, res, next) {
+    static async delete(req, res, next) {
         let { id } = req.params;
         // axios({
         //     url: `${url}/${id}`,

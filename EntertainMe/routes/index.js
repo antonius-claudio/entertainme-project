@@ -1,11 +1,9 @@
 const router = require('express').Router();
 const movieRouter = require('./movieRouter');
 const tvSeriesRouter = require('./tvSeriesRouter');
+const Controller = require('../controllers/Controller');
 
-// router.get('/', function(req, res) {
-//     redis.set('test', 'tost');
-//     res.send('masuk')
-// });
+router.get('/entertainme', Controller.getAll);
 router.use('/movies', movieRouter);
 router.use('/tvseries', tvSeriesRouter);
 
