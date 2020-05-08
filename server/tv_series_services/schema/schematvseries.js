@@ -1,4 +1,4 @@
-db.createCollection("movies", {
+db.createCollection("TvSeries", {
    validator: {
       $jsonSchema: {
          bsonType: "object",

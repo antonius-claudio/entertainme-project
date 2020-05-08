@@ -1,6 +1,6 @@
 const { getDatabase } = require('../config/mongo');
 const db = getDatabase();
-const TvSeriesDb = db.collection('tvseries');
+const TvSeriesDb = db.collection('TvSeries');
 const { ObjectId } = require('mongodb');
 
 class TvSeries {

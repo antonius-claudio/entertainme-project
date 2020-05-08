@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb');
 const url = 'mongodb://localhost:27017';
-const dbName = 'movies-services-db';
+// const dbName = 'tvseries-services-db';
+const dbName = 'EntertainMe';
 const client = new MongoClient(url, { useNewUrlParser: true ,useUnifiedTopology: true });
 
 let db;
