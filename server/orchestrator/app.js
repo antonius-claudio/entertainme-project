@@ -1,6 +1,6 @@
 const { ApolloServer, makeExecutableSchema } = require('apollo-server');
 const movieSchema = require('./schemas/movieSchema');
-// const tvSeriesSchema = require('./schemas/tvSeriesSchema');
+const tvSeriesSchema = require('./schemas/tvSeriesSchema');
 // const entertainMeSchema = require('./schemas/entertainMeSchema')
 
 // const typeDefs = `
@@ -9,10 +9,10 @@ const movieSchema = require('./schemas/movieSchema');
 // `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [movieSchema.typeDefs],
-//   typeDefs: [movieSchema.typeDefs, tvSeriesSchema.typeDefs, entertainMeSchema],
-  resolvers: [movieSchema.resolvers],
-//   resolvers: [movieSchema.resolvers, tvSeriesSchema.resolvers, entertainMeSchema.resolvers],
+  // typeDefs: [movieSchema.typeDefs],
+  typeDefs: [movieSchema.typeDefs, tvSeriesSchema.typeDefs],
+  // resolvers: [movieSchema.resolvers],
+  resolvers: [movieSchema.resolvers, tvSeriesSchema.resolvers],
 });
 
 const server = new ApolloServer({

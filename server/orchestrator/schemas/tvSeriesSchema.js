@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server');
-const url = 'http://localhost:3003/tvseries';
+const urlTvSeries = 'http://localhost:3003/tvseries';
 const axios = require('axios');
 const Redis = require("ioredis");
 const redis = new Redis();
@@ -14,19 +14,14 @@ const typeDefs = gql`
         tags: [String]!,
     }
 
-    type Delete_Response {
-        deletedCount: Int!,
-        ok: Int!,
-    }
-
-    type Query {
+    extend type Query {
         getTvSeries: [TvSeries],
         getATvSeries(
             id: ID!
         ): TvSeries,
     }
     
-    type Mutation {
+    extend type Mutation {
         createTvSeries(
             title: String!,
             overview: String!,
@@ -56,7 +51,7 @@ const resolvers = {
                 if (tvseries) return tvseries;
 
                 const { data } = await axios({
-                    url,
+                    url: urlTvSeries,
                     method: 'GET'
                 })
                 redis.set('tvseries', JSON.stringify(data));
@@ -65,13 +60,13 @@ const resolvers = {
                 return { error };
             }
         },
-        getTvSeries: async (parent, args, context, info) => {
+        getATvSeries: async (parent, args, context, info) => {
             try {
                 let { id } = args;
                 const tvseries = JSON.parse(await redis.get('tvseries'))
                 if (tvseries && tvseries.length !== 0) return tvseries.find(atvseries => atvseries._id === id);
                 const { data } = await axios({
-                    url: `${url}/${id}`,
+                    url: `${urlTvSeries}/${id}`,
                     method: 'GET'
                 })
                 redis.set('tvseries', JSON.stringify(data));
@@ -92,7 +87,7 @@ const resolvers = {
                     tags: args.tags
                 };
                 const { data } = await axios({
-                    url,
+                    url: urlTvSeries,
                     method: 'POST',
                     data: form
                 })
@@ -119,7 +114,7 @@ const resolvers = {
                     tags: args.tags
                 };
                 const { data } = await axios({
-                    url: `${url}/${id}`,
+                    url: `${urlTvSeries}/${id}`,
                     method: 'PUT',
                     data: form
                 })
@@ -143,7 +138,7 @@ const resolvers = {
             try {
                 let { id } = args;
                 const { data } = await axios({
-                    url: `${url}/${id}`,
+                    url: `${urlTvSeries}/${id}`,
                     method: 'DELETE'
                 })
                 let tvseries = JSON.parse(await redis.get('tvseries'));

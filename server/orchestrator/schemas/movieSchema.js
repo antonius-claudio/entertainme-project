@@ -19,6 +19,14 @@ const typeDefs = gql`
         ok: Int!,
     }
 
+    input InputMovie {
+        title: String!,
+        overview: String!,
+        poster_path: String!,
+        popularity: Float!,
+        tags: [String]!,
+    }
+
     type Query {
         getMovies: [Movie],
         getMovie(

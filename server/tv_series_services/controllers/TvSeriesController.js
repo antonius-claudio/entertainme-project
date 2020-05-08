@@ -23,10 +23,11 @@ class TvSeriesController {
     }
 
     static create(req, res, next) {
+        console.log('object')
         let form = {
             title: req.body.title,
             overview: req.body.overview,
-            poster_path: req.body.overview,
+            poster_path: req.body.poster_path,
             popularity: req.body.popularity,
             tags: req.body.tags
         };
@@ -44,7 +45,7 @@ class TvSeriesController {
         let form = {
             title: req.body.title,
             overview: req.body.overview,
-            poster_path: req.body.overview,
+            poster_path: req.body.poster_path,
             popularity: req.body.popularity,
             tags: req.body.tags
         };
