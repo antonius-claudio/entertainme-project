@@ -39,6 +39,13 @@ export const styles = {
     },
     titleMovieBox: {
         color: '#524646',
-    }
-    
+    },
+    formInput: {
+        width: '80%',
+        marginLeft: '10%',
+        backgroundColor: '#fff',
+        padding: '3%',
+        borderRadius: '10px',
+        marginBottom: '8%',
+    },
 }

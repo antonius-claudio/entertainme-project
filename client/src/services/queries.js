@@ -48,13 +48,30 @@ export const GET_TVSERIES = gql`
 `;
 
 export const GET_MOVIE = gql`
-    query getMovie($id: ID!) {
-        getMovie(id: $id) {
-            _id
-            title
-            overview
-            poster_path
-            popularity
+query getMovie($id: ID!) {
+    getMovie(id: $id) {
+        _id
+        title
+        overview
+        poster_path
+        popularity
+        tags
+    }
+}
+`;
+
+export const CREATE_MOVIE = gql`
+    mutation createMovie($title: String!, $overview: String!, $poster_path: String!, $popularity: Float!, $tags: [String]!) {
+        createMovie(title: $title,
+            overview: $overview,
+            poster_path: $poster_path,
+            popularity: $popularity,
+            tags: $tags) {
+            _id,
+            title,
+            overview,
+            poster_path,
+            popularity,
             tags
         }
     }
