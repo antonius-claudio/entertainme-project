@@ -2,6 +2,7 @@ import React from 'react';
 import 'materialize-css';
 import { Navbar, NavItem, Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import { styles } from '../css';
 
 export default function Nav() {
     return (
@@ -21,6 +22,7 @@ export default function Nav() {
                 outDuration: 200,
                 preventScrolling: true
             }}
+            style={styles.navHead}
         >
             <Link to='/'>
                 Home

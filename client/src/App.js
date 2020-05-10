@@ -1,7 +1,8 @@
 import React from 'react';
-import { Nav } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home, Movies, TvSeries } from './pages';
+import { ApolloProvider } from '@apollo/react-hooks';
+import client from './services/graphql';
 
 const routes = [
   {
@@ -28,12 +29,11 @@ export const AppRouter = () => (
 function App() {
   return (
     <>
-      <Router>
-        <Nav/>
-        <div className="container">
-          <AppRouter />
-        </div>
-      </Router>
+      <ApolloProvider client={client}>
+        <Router>
+            <AppRouter />
+        </Router>
+      </ApolloProvider>
     </>
   );
 }

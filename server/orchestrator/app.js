@@ -3,15 +3,8 @@ const movieSchema = require('./schemas/movieSchema');
 const tvSeriesSchema = require('./schemas/tvSeriesSchema');
 // const entertainMeSchema = require('./schemas/entertainMeSchema')
 
-// const typeDefs = `
-//   type Query
-//   type Mutation
-// `;
-
 const schema = makeExecutableSchema({
-  // typeDefs: [movieSchema.typeDefs],
   typeDefs: [movieSchema.typeDefs, tvSeriesSchema.typeDefs],
-  // resolvers: [movieSchema.resolvers],
   resolvers: [movieSchema.resolvers, tvSeriesSchema.resolvers],
 });
 
