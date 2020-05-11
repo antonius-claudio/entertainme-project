@@ -113,7 +113,7 @@ export default function FormInput(props) {
                         node="button"
                         waves="light"
                         onClick={props.actionCancel}
-                        style={{margin: '0px 10px'}}
+                        style={{margin: '10px'}}
                     >
                         Cancel
                         <Icon right>
@@ -124,7 +124,7 @@ export default function FormInput(props) {
                         node="button"
                         waves="light"
                         onClick={actionSubmitMovie}
-                        style={{margin: '0px 10px'}}
+                        style={{margin: '10px'}}
                     >
                         Submit
                         <Icon right>

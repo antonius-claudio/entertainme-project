@@ -6,14 +6,12 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_MOVIE, GET_ATVSERIES, DELETE_MOVIE, GET_MOVIES } from '../services/queries';
 import { Row, Col, Button, Icon } from 'react-materialize';
 import { gql } from 'apollo-boost';
-import ReactLoading from 'react-loading';
 import { useParams, useLocation, useHistory, Link } from 'react-router-dom';
 
 export default function Detail() {
     const [isVisible, setisVisible] = useState(false);
     const { id } = useParams();
     const location = useLocation();
-    console.log(location)
     const history = useHistory();
     const { loading, error, data } = useQuery(GET_MOVIE, {
         variables: { id: id }
@@ -26,13 +24,16 @@ export default function Detail() {
     });
 
     const actionDelete = () => {
-        console.log('action delete');
         deleteMovie({ variables: {id}});
         history.goBack();
     }
 
     const actionBack = () => {
         history.goBack();
+    }
+
+    const actionFavorite = () => {
+        console.log('action fav');
     }
 
     useEffect(() => {
@@ -102,9 +103,9 @@ export default function Detail() {
                                         </Col>
                                     </Row>
                                     <Col 
-                                            s={4}
-                                            m={4}
-                                            l={4}
+                                            s={6}
+                                            m={6}
+                                            l={3}
                                     >
                                         <Button
                                             node="button"
@@ -118,9 +119,9 @@ export default function Detail() {
                                         </Button>
                                     </Col>
                                     <Col 
-                                            s={4}
-                                            m={4}
-                                            l={4}
+                                            s={6}
+                                            m={6}
+                                            l={3}
                                     >
                                         <Link to={`${location.pathname}/edit`}>
                                             <Button
@@ -135,9 +136,9 @@ export default function Detail() {
                                         </Link>
                                     </Col>
                                     <Col 
-                                            s={4}
-                                            m={4}
-                                            l={4}
+                                            s={6}
+                                            m={6}
+                                            l={3}
                                     >
                                         <Button
                                             node="button"
@@ -147,6 +148,22 @@ export default function Detail() {
                                             Delete
                                             <Icon right>
                                             delete
+                                            </Icon>
+                                        </Button>
+                                    </Col>
+                                    <Col 
+                                            s={6}
+                                            m={6}
+                                            l={3}
+                                    >
+                                        <Button
+                                            node="button"
+                                            waves="light"
+                                            onClick={actionFavorite}
+                                        >
+                                            Favorite
+                                            <Icon right>
+                                            add
                                             </Icon>
                                         </Button>
                                     </Col>
@@ -206,8 +223,8 @@ export default function Detail() {
                                         </Col>
                                     </Row>
                                     <Col 
-                                            s={4}
-                                            m={4}
+                                            s={6}
+                                            m={6}
                                             l={4}
                                     >
                                         <Button
@@ -221,10 +238,25 @@ export default function Detail() {
                                             </Icon>
                                         </Button>
                                     </Col>
+                                    <Col 
+                                            s={6}
+                                            m={6}
+                                            l={4}
+                                    >
+                                        <Button
+                                            node="button"
+                                            waves="light"
+                                            onClick={actionFavorite}
+                                        >
+                                            Favorite
+                                            <Icon right>
+                                            add
+                                            </Icon>
+                                        </Button>
+                                    </Col>
                                 </Col>
                             </Row>
                         }
-                        
                     </div>
                 </Animated>
             </div>

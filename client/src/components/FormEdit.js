@@ -198,7 +198,7 @@ export default function FormInput(props) {
                                 node="button"
                                 waves="light"
                                 onClick={actionCancel}
-                                style={{margin: '0px 10px'}}
+                                style={{margin: '10px'}}
                             >
                                 Cancel
                                 <Icon right>
@@ -209,7 +209,7 @@ export default function FormInput(props) {
                                 node="button"
                                 waves="light"
                                 onClick={actionUpdateMovie}
-                                style={{margin: '0px 10px'}}
+                                style={{margin: '10px'}}
                             >
                                 Update
                                 <Icon right>
