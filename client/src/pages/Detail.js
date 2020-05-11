@@ -6,6 +6,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_MOVIE, GET_ATVSERIES, DELETE_MOVIE, GET_MOVIES, ADD_FAVORITES } from '../services/queries';
 import { Row, Col, Button, Icon } from 'react-materialize';
 import { useParams, useLocation, useHistory, Link } from 'react-router-dom';
+import SweetAlert from 'sweetalert2-react';
 
 export default function Detail() {
     const [isVisible, setisVisible] = useState(false);
@@ -22,8 +23,10 @@ export default function Detail() {
         refetchQueries: [{ query: GET_MOVIES }]
     });
     const [ addFavorites, { data: dataFavorites } ] = useMutation(ADD_FAVORITES);
+    const [isDelete, setIsDelete] = useState(false)
 
     const actionDelete = () => {
+        setIsDelete(false);
         deleteMovie({ variables: {id}});
         history.goBack();
     }
@@ -49,6 +52,7 @@ export default function Detail() {
 
     useEffect(() => {
         setisVisible(true);
+        setIsDelete(false);
     }, [])
     
 
@@ -154,13 +158,19 @@ export default function Detail() {
                                         <Button
                                             node="button"
                                             waves="light"
-                                            onClick={actionDelete}
+                                            onClick={()=>setIsDelete(true)}
                                         >
                                             Delete
                                             <Icon right>
                                             delete
                                             </Icon>
                                         </Button>
+                                        <SweetAlert
+                                            show={isDelete}
+                                            title="Delete!"
+                                            text="Are you sure want to delete this?"
+                                            onConfirm={actionDelete}
+                                        />
                                     </Col>
                                     <Col 
                                             s={6}
