@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require('apollo-server-express');
 const url = 'http://localhost:3002/movies';
 const axios = require('axios');
 const Redis = require("ioredis");
