@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home, Movies, TvSeries } from './pages';
+import { Home, Movies, TvSeries, Detail } from './pages';
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './services/graphql';
+import { FormEdit } from './components';
 
 const routes = [
   {
@@ -11,10 +12,26 @@ const routes = [
     children: <Home/>
   },
   {
+    path: '/movie-detail/:id/edit',
+    children: <FormEdit/>
+  },
+  // <Route path={`${path}/add`} exact>
+  //     <h1>hello</h1>
+  // </Route>
+  {
+    path: '/movie-detail/:id',
+    children: <Detail/>
+  },
+  {
+    path: '/tvseries-detail/:id',
+    children: <Detail/>
+  },
+  {
     path: '/movies',
     children: <Movies/>
   },
   {
+    exact: true,
     path: '/tvseries',
     children: <TvSeries/>
   }
@@ -31,7 +48,7 @@ function App() {
     <>
       <ApolloProvider client={client}>
         <Router>
-            <AppRouter />
+            <AppRouter/>
         </Router>
       </ApolloProvider>
     </>

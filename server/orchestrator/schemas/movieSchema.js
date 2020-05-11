@@ -150,6 +150,7 @@ const resolvers = {
         deleteMovie: async (parent, args, context, info) => {
             try {
                 let { id } = args;
+                console.log('masukkk schema orches', id)
                 const { data } = await axios({
                     url: `${url}/${id}`,
                     method: 'DELETE'

@@ -59,6 +59,7 @@ class MovieController {
 
     static delete(req, res, next) {
         let { id } = req.params;
+        console.log('controller delete', id)
         Movie.delete(id)
             .then((result) => {
                 res.status(200).json(result);

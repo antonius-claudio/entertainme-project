@@ -11,6 +11,7 @@ export const styles = {
     },
     container: {
         backgroundColor: 'rgb(181, 194, 255)',
+        height: '100%',
         borderRadius: 10,
         width: '80%',
         display: 'flex',
@@ -48,4 +49,15 @@ export const styles = {
         borderRadius: '10px',
         marginBottom: '8%',
     },
+    contentDetail: {
+        padding: '2% 5%',
+    },
+    contentDetailLeft: {
+        width: '30%',
+    },
+    contentDetailRight: {
+        textAlign: 'left', 
+        padding: '2%', 
+        lineHeight: '2.5em'
+    }
 }

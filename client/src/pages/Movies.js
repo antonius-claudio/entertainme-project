@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, CardBox } from '../components';
+import { Nav, CardBox, Loading } from '../components';
 import { styles } from '../css';
 import { Animated } from "react-animated-css";
 import { useQuery } from '@apollo/react-hooks';
@@ -36,18 +36,32 @@ export default function Home() {
         <>
             <Nav/>
             <div style={styles.content}>
-                <Animated animationIn="fadeInUp" animationOut="fadeOutDown" animationInDuration={1000} animationOutDuration={1000} isVisible={isVisible}>
+                <Animated 
+                    animationIn="fadeInUp" 
+                    animationOut="fadeOutDown" 
+                    animationInDuration={1000} 
+                    animationOutDuration={1000} 
+                    isVisible={isVisible}
+                >
                     <div style={styles.container}>
                         <h4 style={styles.title}>Movies</h4>
-                        {loading === true && <div style={styles.load}>
-                            <ReactLoading type={'spin'} color={'#e24141'} height={'10%'} width={'10%'}/>
-                        </div>}
+                        {loading === true && <Loading/>}
                         <Switch>
+                            {/* <Route path='/movies-add'> */}
                             <Route path={`${path}/add`}>
-                                <FormInput isVisiButton={isVisiButton} actionCancel={actionCancel} setIsVisiButton={setIsVisiButton}/>
+                                <FormInput 
+                                    isVisiButton={isVisiButton} 
+                                    actionCancel={actionCancel} 
+                                    setIsVisiButton={setIsVisiButton}
+                                />
                             </Route>
                         </Switch>
                         {isVisiButton && 
+                        // <Link to={{
+                        //     pathname:`/add`, 
+                        //     state:{ isVisiButton, button:() => {}}
+                        // }}>
+                        // <Link to='/movies-add'>
                         <Link to={`${url}/add`}>
                             <Button
                                 node="a"
@@ -63,11 +77,21 @@ export default function Home() {
                             </Button>
                         </Link>
                         }
-                        {data && data.getMovies && <Row>
+                        {data && data.getMovies && 
+                        <Row>
                             {data.getMovies.map(item => (
                                 <>
-                                <Animated animationIn="slideInRight" animationOut="slideOutRight" animationInDuration={2000} animationOutDuration={1000} isVisible={loading===false}>
-                                    <Link to={`${url}/${item._id}`}>
+                                <Animated 
+                                    animationIn="slideInRight" 
+                                    animationOut="slideOutRight" 
+                                    animationInDuration={2000} 
+                                    animationOutDuration={1000} 
+                                    isVisible={loading===false}
+                                >
+                                    <Link to={{
+                                        pathname: `/movie-detail/${item._id}`, 
+                                        state: { type:'Movies' }}}
+                                    >
                                         <CardBox key={item._id} data={item}/>
                                     </Link>
                                 </Animated>
