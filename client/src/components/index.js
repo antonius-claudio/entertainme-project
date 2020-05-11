@@ -3,3 +3,4 @@ export { default as CardBox } from './CardBox';
 export { default as FormInput } from './FormInput';
 export { default as FormEdit } from './FormEdit';
 export { default as Loading } from './Loading';
+export { default as Error } from './Error';

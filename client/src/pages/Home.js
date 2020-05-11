@@ -10,9 +10,6 @@ import { Link } from 'react-router-dom';
 export default function Home() {
     const [isVisible, setisVisible] = useState(false);
     const { loading, error, data } = useQuery(GET_ALL);
-    // const { loading: loadingMovie, error: errorMovie, data: dataMovie } = useQuery(GET_MOVIE, {
-    //     variables: { id: "5eb7976246f2060e6415decf" }
-    // });
 
     useEffect(() => {
         setisVisible(true);
@@ -54,10 +51,6 @@ export default function Home() {
                                 </>
                             ))}
                         </Row>}
-                        {/* {dataMovie && <CardBox data={dataMovie}/>} */}
-                        {/* {dataMovie && JSON.stringify(dataMovie)} */}
-                        {/* <p>{JSON.stringify(data)}</p> */}
-                        {/* <p>{JSON.stringify(data.getMovies)}</p> */}
                     </div>
                 </Animated>
             </div>

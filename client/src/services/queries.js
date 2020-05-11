@@ -133,3 +133,43 @@ export const DELETE_MOVIE = gql`
         }
     }
 `;
+
+export const GET_FAVORITES = gql`
+    query {
+        favorites @client {
+            _id
+            title
+            overview
+            poster_path
+            popularity
+            tags
+        }
+    }
+`;
+
+export const ADD_FAVORITES = gql`
+    mutation addFavorites (
+        $id: ID,
+        $title: String, 
+        $overview: String, 
+        $poster_path: String, 
+        $popularity: Float, 
+        $tags: [String]
+    ) {
+        addFavorites (
+            _id: $id,
+            title: $title, 
+            overview: $overview, 
+            poster_path: $poster_path, 
+            popularity: $popularity,
+            tags: $tags
+        ) @client {
+            _id
+            title
+            overview
+            poster_path
+            popularity
+            tags
+        }
+    }
+`;

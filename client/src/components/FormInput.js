@@ -20,11 +20,6 @@ export default function FormInput(props) {
 
 
     const actionSubmitMovie = () => {
-        console.log('title', title);
-        console.log('overview', overview);
-        console.log('poster_path', poster_path);
-        console.log('popularity', parseFloat(popularity));
-        console.log('tags', tags);
         createMovie({ variables: {title, overview, poster_path, popularity: parseFloat(popularity), tags}});
         setTitle('');
         setOverview('');
@@ -70,6 +65,7 @@ export default function FormInput(props) {
                         label="Popularity"
                         type="number"
                         onChange={(e) => setPopularity(e.target.value)}
+                        min='0'
                     />
                     <Select
                         id="tagsID"

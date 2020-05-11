@@ -3,9 +3,8 @@ import { Nav, Loading } from '../components';
 import { styles } from '../css';
 import { Animated } from "react-animated-css";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_MOVIE, GET_ATVSERIES, DELETE_MOVIE, GET_MOVIES } from '../services/queries';
+import { GET_MOVIE, GET_ATVSERIES, DELETE_MOVIE, GET_MOVIES, ADD_FAVORITES } from '../services/queries';
 import { Row, Col, Button, Icon } from 'react-materialize';
-import { gql } from 'apollo-boost';
 import { useParams, useLocation, useHistory, Link } from 'react-router-dom';
 
 export default function Detail() {
@@ -22,6 +21,7 @@ export default function Detail() {
     const [ deleteMovie ] = useMutation(DELETE_MOVIE, {
         refetchQueries: [{ query: GET_MOVIES }]
     });
+    const [ addFavorites, { data: dataFavorites } ] = useMutation(ADD_FAVORITES);
 
     const actionDelete = () => {
         deleteMovie({ variables: {id}});
@@ -33,7 +33,18 @@ export default function Detail() {
     }
 
     const actionFavorite = () => {
-        console.log('action fav');
+        if (data) {
+            addFavorites({
+                variables: {
+                    id: data.getMovie._id,
+                    title: data.getMovie.title, 
+                    overview: data.getMovie.overview, 
+                    poster_path: data.getMovie.poster_path, 
+                    popularity: parseFloat(data.getMovie.popularity), 
+                    tags: data.getMovie.tags
+                }
+            })
+        }
     }
 
     useEffect(() => {
@@ -238,7 +249,7 @@ export default function Detail() {
                                             </Icon>
                                         </Button>
                                     </Col>
-                                    <Col 
+                                    {/* <Col 
                                             s={6}
                                             m={6}
                                             l={4}
@@ -253,7 +264,7 @@ export default function Detail() {
                                             add
                                             </Icon>
                                         </Button>
-                                    </Col>
+                                    </Col> */}
                                 </Col>
                             </Row>
                         }

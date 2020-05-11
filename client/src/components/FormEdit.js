@@ -30,7 +30,6 @@ export default function FormInput(props) {
 
     useEffect(() => {
         if (data) {
-            console.log(data.getMovie);
             setTitle(data.getMovie.title);
             setOverview(data.getMovie.overview);
             setPoster_path(data.getMovie.poster_path);
@@ -40,7 +39,6 @@ export default function FormInput(props) {
     }, [data])
 
     const actionCancel = () => {
-        console.log('action cancel')
         setTitle('');
         setOverview('');
         setPoster_path('');
@@ -50,11 +48,6 @@ export default function FormInput(props) {
     }
 
     const actionUpdateMovie = () => {
-        console.log('title', title);
-        console.log('overview', overview);
-        console.log('poster_path', poster_path);
-        console.log('popularity', parseFloat(popularity));
-        console.log('tags', tags);
         updateMovie({ 
             variables: {
                 id,

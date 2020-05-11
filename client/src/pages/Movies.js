@@ -5,7 +5,6 @@ import { Animated } from "react-animated-css";
 import { useQuery } from '@apollo/react-hooks';
 import { GET_MOVIES } from '../services/queries';
 import { Row, Button, Icon } from 'react-materialize';
-import ReactLoading from 'react-loading';
 import { Link, Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
 import { FormInput } from '../components';
 
@@ -47,7 +46,6 @@ export default function Home() {
                         <h4 style={styles.title}>Movies</h4>
                         {loading === true && <Loading/>}
                         <Switch>
-                            {/* <Route path='/movies-add'> */}
                             <Route path={`${path}/add`}>
                                 <FormInput 
                                     isVisiButton={isVisiButton} 
@@ -57,11 +55,6 @@ export default function Home() {
                             </Route>
                         </Switch>
                         {isVisiButton && 
-                        // <Link to={{
-                        //     pathname:`/add`, 
-                        //     state:{ isVisiButton, button:() => {}}
-                        // }}>
-                        // <Link to='/movies-add'>
                         <Link to={`${url}/add`}>
                             <Button
                                 node="a"

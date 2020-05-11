@@ -3,13 +3,12 @@ import { Nav, CardBox, Loading } from '../components';
 import { styles } from '../css';
 import { Animated } from "react-animated-css";
 import { useQuery } from '@apollo/react-hooks';
-import { GET_TVSERIES } from '../services/queries';
+import { GET_FAVORITES } from '../services/queries';
 import { Row } from 'react-materialize';
-import { Link } from 'react-router-dom';
 
-export default function Home() {
+export default function Favorites() {
     const [isVisible, setisVisible] = useState(false);
-    const { loading, error, data } = useQuery(GET_TVSERIES);
+    const { loading, error, data } = useQuery(GET_FAVORITES);
 
     useEffect(() => {
         setisVisible(true);
@@ -27,11 +26,11 @@ export default function Home() {
                     isVisible={isVisible}
                 >
                     <div style={styles.container}>
-                        <h4 style={styles.title}>Tv Series</h4>
+                        <h4 style={styles.title}>Favorites</h4>
                         {loading === true && <Loading/>}
-                        {data && data.getTvSeries && 
+                        {data && data.favorites && 
                         <Row>
-                            {data.getTvSeries.map(item => (
+                            {data.favorites.map(item => (
                                 <>
                                 <Animated 
                                     animationIn="slideInRight" 
@@ -40,12 +39,7 @@ export default function Home() {
                                     animationOutDuration={1000} 
                                     isVisible={loading===false}
                                 >
-                                    <Link to={{
-                                        pathname: `/tvseries-detail/${item._id}`, 
-                                        state: { type:'TvSeries' }}}
-                                    >
-                                        <CardBox key={item._id} data={item}/>
-                                    </Link>
+                                    <CardBox key={item._id} data={item}/>
                                 </Animated>
                                 </>
                             ))}

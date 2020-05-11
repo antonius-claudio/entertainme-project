@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home, Movies, TvSeries, Detail } from './pages';
+import { Home, Movies, TvSeries, Detail, Favorites } from './pages';
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './services/graphql';
 import { FormEdit } from './components';
@@ -31,9 +31,14 @@ const routes = [
     children: <Movies/>
   },
   {
-    exact: true,
+    // exact: true,
     path: '/tvseries',
     children: <TvSeries/>
+  },
+  {
+    // exact: true,
+    path: '/favorites',
+    children: <Favorites/>
   }
 ];
 
