@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'materialize-css';
 import { TextInput, Select, Button, Icon } from 'react-materialize';
-import { Nav } from '../components';
+import { Nav, Error } from '../components';
 import { styles } from '../css';
 import { Animated } from "react-animated-css";
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -23,6 +23,7 @@ export default function FormInput(props) {
         refetchQueries: [{ query: GET_MOVIES }]
     });
     const history = useHistory();
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         setisVisible(true);
@@ -48,22 +49,33 @@ export default function FormInput(props) {
     }
 
     const actionUpdateMovie = () => {
-        updateMovie({ 
-            variables: {
-                id,
-                title, 
-                overview, 
-                poster_path, 
-                popularity: parseFloat(popularity), 
-                tags
-            }
-        });
-        setTitle('');
-        setOverview('');
-        setPoster_path('');
-        setPopularity(0);
-        setTags([]);
-        history.goBack();
+        if (title === '' || 
+            overview === '' || 
+            poster_path === '' || 
+            popularity === '' || 
+            tags.length === 0) {
+            setMessage('Input Update cannot be empty!');
+            setTimeout(() => {
+                setMessage('');
+            }, 3000);
+        } else  {
+            updateMovie({ 
+                variables: {
+                    id,
+                    title, 
+                    overview, 
+                    poster_path, 
+                    popularity: parseFloat(popularity), 
+                    tags
+                }
+            });
+            setTitle('');
+            setOverview('');
+            setPoster_path('');
+            setPopularity(0);
+            setTags([]);
+            history.goBack();
+        }
     }
 
     const cekIsSelect = (value) => {
@@ -89,6 +101,7 @@ export default function FormInput(props) {
             <div style={styles.content}>
                 <Animated animationIn="fadeInUp" animationOut="fadeOutDown" animationInDuration={1000} animationOutDuration={1000} isVisible={isVisible}>
                     <div style={styles.container}>
+                        {message !== '' && <Error message={message}/>}
                         <h4 style={styles.title}>Update Movie</h4>
                         <div style={styles.formInput}>
                             {data ? <TextInput

@@ -6,6 +6,7 @@ import { Animated } from "react-animated-css";
 import { useMutation } from '@apollo/react-hooks';
 import { CREATE_MOVIE, GET_MOVIES } from '../services/queries';
 import { useHistory } from 'react-router-dom';
+import { Error } from '../components';
 
 export default function FormInput(props) {
     const [title, setTitle] = useState('');
@@ -17,17 +18,28 @@ export default function FormInput(props) {
         refetchQueries: [{ query: GET_MOVIES }]
     });
     const history = useHistory();
-
+    const [message, setMessage] = useState('');
 
     const actionSubmitMovie = () => {
-        createMovie({ variables: {title, overview, poster_path, popularity: parseFloat(popularity), tags}});
-        setTitle('');
-        setOverview('');
-        setPoster_path('');
-        setPopularity(0);
-        setTags([]);
-        props.setIsVisiButton(true);
-        history.push('/movies');
+        if (title === '' || 
+            overview === '' || 
+            poster_path === '' || 
+            popularity === '' || 
+            tags.length === 0) {
+            setMessage('Input Create cannot be empty!');
+            setTimeout(() => {
+                setMessage('');
+            }, 3000);
+        } else  {
+            createMovie({ variables: {title, overview, poster_path, popularity: parseFloat(popularity), tags}});
+            setTitle('');
+            setOverview('');
+            setPoster_path('');
+            setPopularity(0);
+            setTags([]);
+            props.setIsVisiButton(true);
+            history.push('/movies');
+        }
     }
 
     const handleChange= function(e) {
@@ -45,6 +57,7 @@ export default function FormInput(props) {
         <>
             <Animated animationIn="slideInRight" animationOut="slideOutRight" animationInDuration={1000} animationOutDuration={800} isVisible={props.isVisiButton === false}>
                 <div style={styles.formInput}>
+                    {message !== '' && <Error message={message}/>}
                     <TextInput
                         id="titleID"
                         label="Title"

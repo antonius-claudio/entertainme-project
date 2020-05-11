@@ -59,5 +59,18 @@ export const styles = {
         textAlign: 'left', 
         padding: '2%', 
         lineHeight: '2.5em'
+    },
+    toast: {
+        minWidth: '250px',
+        marginLeft: '-125px',
+        backgroundColor: '#333',
+        color: '#fff',
+        textAlign: 'center',
+        borderRadius: '2px',
+        padding: '16px',
+        position: 'fixed',
+        zIndex: '1',
+        left: '50%',
+        bottom: '30px',
     }
 }
