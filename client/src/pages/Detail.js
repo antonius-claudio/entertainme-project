@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, Loading } from '../components';
+import { Nav, Loading, Error } from '../components';
 import { styles } from '../css';
 import { Animated } from "react-animated-css";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_MOVIE, GET_ATVSERIES, DELETE_MOVIE, GET_MOVIES, ADD_FAVORITES } from '../services/queries';
+import { GET_MOVIE, GET_ATVSERIES, DELETE_MOVIE, GET_MOVIES, ADD_FAVORITES, GET_FAVORITES } from '../services/queries';
 import { Row, Col, Button, Icon } from 'react-materialize';
 import { useParams, useLocation, useHistory, Link } from 'react-router-dom';
 import SweetAlert from 'sweetalert2-react';
@@ -23,7 +23,10 @@ export default function Detail() {
         refetchQueries: [{ query: GET_MOVIES }]
     });
     const [ addFavorites, { data: dataFavorites } ] = useMutation(ADD_FAVORITES);
-    const [isDelete, setIsDelete] = useState(false)
+    const [isDelete, setIsDelete] = useState(false);
+    // const { loadingFav, errorFav, dataFav } = useQuery(GET_FAVORITES);
+    // const [isNotDuplicate, setIsNotDuplicate] = useState(true);
+    const [message, setMessage] = useState('');
 
     const actionDelete = () => {
         setIsDelete(false);
@@ -37,16 +40,29 @@ export default function Detail() {
 
     const actionFavorite = () => {
         if (data) {
-            addFavorites({
-                variables: {
-                    id: data.getMovie._id,
-                    title: data.getMovie.title, 
-                    overview: data.getMovie.overview, 
-                    poster_path: data.getMovie.poster_path, 
-                    popularity: parseFloat(data.getMovie.popularity), 
-                    tags: data.getMovie.tags
-                }
-            })
+            // console.log('masuk if data')
+            // if (dataFav) {
+            // console.log('masuk if dataFav', dataFav)
+            //     dataFav.favorites.find(item => item._id === data.getMovie._id) ? 
+            //         setIsNotDuplicate(false) : setIsNotDuplicate(true);
+            //     console.log(isNotDuplicate)
+            //     isNotDuplicate === true ? console.log('Movie already added!') : console.log('add to fav')
+            // } else {
+                addFavorites({
+                    variables: {
+                        id: data.getMovie._id,
+                        title: data.getMovie.title, 
+                        overview: data.getMovie.overview, 
+                        poster_path: data.getMovie.poster_path, 
+                        popularity: parseFloat(data.getMovie.popularity), 
+                        tags: data.getMovie.tags
+                    }
+                })
+                setMessage('Added to Fav!');
+                setTimeout(() => {
+                    setMessage('');
+                }, 3000);
+            // }
         }
     }
 
@@ -63,6 +79,8 @@ export default function Detail() {
                 <Animated animationIn="fadeInUp" animationOut="fadeOutDown" animationInDuration={1000} animationOutDuration={1000} isVisible={isVisible}>
                     <div style={styles.container}>
                         <h4 style={styles.title}>Detail</h4>
+                        {message !== '' && <Error message={message}/>}
+                        {/* {JSON.stringify(isNotDuplicate)} */}
                         {location.state.type ==='Movies' && loading === true && <Loading/>}
                         {location.state.type !=='Movies' && loadingTv === true && <Loading/>}
                         {location.state.type ==='Movies' && data && 
