@@ -2,6 +2,7 @@ const express = require('express');
 const { ApolloServer, makeExecutableSchema } = require('apollo-server-express');
 const movieSchema = require('./schemas/movieSchema');
 const tvSeriesSchema = require('./schemas/tvSeriesSchema');
+const PORT = process.env.PORT || 3001;
 // const entertainMeSchema = require('./schemas/entertainMeSchema')
 
 const schema = makeExecutableSchema({
@@ -19,6 +20,6 @@ server.applyMiddleware({ app });
 //   console.log(`🚀  Server ready at ${url}`);
 // });
 
-app.listen({ port: 3001 }, () =>
+app.listen({ port: PORT }, () =>
   console.log('Now browse to http://localhost:3001' + server.graphqlPath)
 );
